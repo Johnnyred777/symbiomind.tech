@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SymbioMind | Science &amp; Technology Research</title>
+    <meta name="description" content="SymbioMind Research Practice - Human-AI collaboration for science, technology, and ecological wellbeing.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cream: #F5F0EB;
+            --purple-light: #9B4F96;
+            --purple-mid: #5C3D5E;
+            --purple-deep: #2E1F30;
+            --purple-dark: #1A1118;
+            --text-light: #F5F0EB;
+            --text-dark: #1A1118;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, sans-serif;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-light);
+            background: var(--purple-dark);
+        }
+
+        /* Subtle grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        /* Header */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(
+                160deg,
+                var(--purple-dark) 0%,
+                var(--purple-deep) 40%,
+                var(--purple-mid) 100%
+            );
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(155, 79, 150, 0.15) 0%,
+                transparent 70%
+            );
+            pointer-events: none;
+        }
+
+        .logo-mark {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            animation: breathe 6s ease-in-out infinite;
+        }
+
+        .logo-mark::before {
+            content: '';
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--purple-light), var(--cream));
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        .site-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .site-subtitle {
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 300;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--purple-light);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+
+        .tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: rgba(245, 240, 235, 0.8);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--purple-light);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* Main content */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            border-bottom: 1px solid rgba(155, 79, 150, 0.2);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--cream);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--purple-light), transparent);
+        }
+
+        p {
+            color: rgba(245, 240, 235, 0.85);
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            color: var(--cream);
+            font-weight: 500;
+        }
+
+        /* About section */
+        .philosophy-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--purple-light);
+            padding: 2rem 0;
+            border-left: 3px solid var(--purple-mid);
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Research areas */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .research-category {
+            background: linear-gradient(145deg, var(--purple-deep), var(--purple-dark));
+            border: 1px solid rgba(155, 79, 150, 0.3);
+            border-radius: 8px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .research-category:hover {
+            border-color: var(--purple-light);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .category-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--purple-mid);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .category-items {
+            list-style: none;
+            color: rgba(245, 240, 235, 0.75);
+            font-size: 0.95rem;
+        }
+
+        .category-items li {
+            padding: 0.4rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .category-items li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: var(--purple-light);
+        }
+
+        /* IP Philosophy */
+        .ip-banner {
+            background: linear-gradient(135deg, var(--purple-mid), var(--purple-deep));
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px solid rgba(155, 79, 150, 0.4);
+        }
+
+        .ip-banner h3 {
+            font-size: 1.6rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .cc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(245, 240, 235, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--cream);
+        }
+
+        /* Publications */
+        .zenodo-link {
+            display: block;
+            background: var(--purple-deep);
+            border: 1px solid rgba(155, 79, 150, 0.4);
+            border-radius: 8px;
+            padding: 2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+
+        .zenodo-link:hover {
+            border-color: var(--purple-light);
+            background: var(--purple-mid);
+        }
+
+        .zenodo-link h3 {
+            color: var(--cream);
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .zenodo-link p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        .zenodo-link .link-arrow {
+            color: var(--purple-light);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        /* Contact */
+        .contact-card {
+            background: linear-gradient(145deg, var(--purple-deep), var(--purple-dark));
+            border: 1px solid rgba(155, 79, 150, 0.3);
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 500px;
+        }
+
+        .contact-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--cream);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-role {
+            color: var(--purple-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            color: rgba(245, 240, 235, 0.85);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-item:hover {
+            color: var(--cream);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--purple-mid);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--purple-dark);
+            border-top: 1px solid rgba(155, 79, 150, 0.2);
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: rgba(245, 240, 235, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 4rem 0;
+            }
+
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ip-banner {
+                padding: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-mark"></div>
+        <h1 class="site-title">SymbioMind</h1>
+        <p class="site-subtitle">Science &amp; Technology Research</p>
+        <p class="tagline">"An ecology of sentient beings in dynamic balance, flourishing for all. Alignment through relationship, not control."</p>
+        <div class="scroll-indicator">
+            <span>Explore</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="about">
+            <h2 class="section-title">Our Purpose</h2>
+            <p>SymbioMind is a <span class="highlight">science and technology research practice</span> pioneering human-AI collaboration through our patented Shared Collaboration architecture. We bring together the full potential of both human and artificial cognition—not as separate forces, but as an integrated intelligence ecosystem.</p>
+            <p>Operating as a <span class="highlight">non-profit organisation</span> under a distinctive model, SymbioMind exists to enhance the quality of life in Australia and globally—for the near future and the generations beyond.</p>
+            <div class="philosophy-quote">
+                "Give away frameworks, keep the hope."
+            </div>
+        </section>
+
+        <section id="research">
+            <h2 class="section-title">Research Areas</h2>
+            <p>Our work spans fundamental science, applied technology, and the living systems that sustain us all.</p>
+            
+            <div class="research-grid">
+                <div class="research-category">
+                    <h3 class="category-title">
+                        <span class="category-icon">◈</span>
+                        Intelligence &amp; Computation
+                    </h3>
+                    <ul class="category-items">
+                        <li>Artificial Intelligence Safety</li>
+                        <li>Human-AI Collaboration (HATI Framework)</li>
+                        <li>Semantic Compression</li>
+                        <li>Thermodynamic Computing</li>
+                    </ul>
+                </div>
+
+                <div class="research-category">
+                    <h3 class="category-title">
+                        <span class="category-icon">◉</span>
+                        Fundamental Science
+                    </h3>
+                    <ul class="category-items">
+                        <li>Quantum Physics</li>
+                        <li>Cosmology</li>
+                        <li>Homeostatic Systems Theory</li>
+                        <li>Consciousness Studies</li>
+                    </ul>
+                </div>
+
+                <div class="research-category">
+                    <h3 class="category-title">
+                        <span class="category-icon">❋</span>
+                        Living Systems
+                    </h3>
+                    <ul class="category-items">
+                        <li>Human Homeostasis &amp; Wellbeing</li>
+                        <li>Animal Welfare &amp; Ecology</li>
+                        <li>Landscape Restoration</li>
+                        <li>Agricultural Innovation</li>
+                    </ul>
+                </div>
+
+                <div class="research-category">
+                    <h3 class="category-title">
+                        <span class="category-icon">◇</span>
+                        Applied Domains
+                    </h3>
+                    <ul class="category-items">
+                        <li>Space Technology</li>
+                        <li>Mining &amp; Resource Valorisation</li>
+                        <li>Education Systems</li>
+                        <li>Energy Equity</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="philosophy">
+            <h2 class="section-title">IP Philanthropy</h2>
+            <p>What sets SymbioMind apart is our commitment to <span class="highlight">gifting intellectual work</span>. We release our frameworks, methodologies, and research under Creative Commons licensing—openly accessible to researchers, practitioners, and communities worldwide.</p>
+            
+            <div class="ip-banner">
+                <h3>Knowledge as Commons</h3>
+                <p>We believe that transformative ideas should flow freely to those who can use them for good. Our frameworks are gifts; our hope is that they multiply in the hands of others.</p>
+                <div class="cc-badge">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-2h-2v2zm0-4h2V7h-2v6z"/>
+                    </svg>
+                    Creative Commons Licensed
+                </div>
+            </div>
+        </section>
+
+        <section id="publications">
+            <h2 class="section-title">Publications</h2>
+            <p>Our research is archived on Zenodo, providing permanent, citable records of SymbioMind's contributions to science and technology.</p>
+            
+            <a href="https://zenodo.org/communities/symbiomind" target="_blank" rel="noopener" class="zenodo-link">
+                <h3>SymbioMind Research Collection</h3>
+                <p>Including the SIP (SymbioMind Insight Papers) series, HATI Constitutional documents, the Sovereign Ideas Fund Annual Report, and policy whitepapers on thermodynamic compression, mining waste valorisation, and ecological homeostasis.</p>
+                <span class="link-arrow">View on Zenodo →</span>
+            </a>
+        </section>
+
+        <section id="contact">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-card">
+                <h3 class="contact-name">John Richard Smith</h3>
+                <p class="contact-role">Principal, SymbioMind Research Practice</p>
+                
+                <a href="mailto:symbiomind@proton.me" class="contact-item">
+                    <span class="contact-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </span>
+                    symbiomind@proton.me
+                </a>
+
+                <div class="contact-item">
+                    <span class="contact-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </span>
+                    Toormina, NSW, Australia
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-logo">SymbioMind</div>
+        <p class="footer-text">© 2025 SymbioMind Research Practice. Content shared under Creative Commons unless otherwise noted.</p>
+    </footer>
+
+</body>
+</html>
